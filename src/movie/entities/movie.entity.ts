@@ -2,24 +2,72 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  PrimaryGeneratedColumn,
+  Generated,
+  PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity()
-export class MovieEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+export enum Genre {
+  ACTION = 'Action',
+  COMEDY = 'Comedy',
+  DRAMA = 'Drama',
+  HORROR = 'Horror',
+}
 
-  @Column()
+@Entity({ name: 'movies' })
+export class MovieEntity {
+  @PrimaryColumn()
+  @Generated('uuid')
+  id: string;
+
+  @Column({
+    type: 'varchar',
+    length: 128,
+  })
   title: string;
 
-  @Column()
+  @Column({
+    type: 'text',
+    nullable: true,
+  })
+  description: string;
+
+  @Column({
+    name: 'release_year',
+    type: 'int',
+    unsigned: true,
+  })
   releaseYear: number;
 
-  @CreateDateColumn()
+  @Column({
+    type: 'decimal',
+    precision: 3,
+    scale: 1,
+    default: 0.0,
+  })
+  rating: number;
+
+  @Column({
+    name: 'is_available',
+    type: 'boolean',
+    default: false,
+  })
+  isAvailable: boolean;
+
+  @Column({
+    type: 'enum',
+    enum: Genre,
+    default: Genre.DRAMA,
+  })
+  genre: Genre;
+
+  @CreateDateColumn({
+    name: 'created_at',
+  })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({
+    name: 'updated_at',
+  })
   updatedAt: Date;
 }
