@@ -11,13 +11,13 @@ export class ActorService {
     private readonly actorRepository: Repository<ActorEntity>,
   ) {}
 
-  async create(dto: CreateActorDto): Promise<ActorEntity> {
-    const { name } = dto;
+  // async create(dto: CreateActorDto): Promise<ActorEntity> {
+  //   const { name } = dto;
 
-    const actor = this.actorRepository.create({
-      name,
-    });
+  //   const actor = this.actorRepository.create({
+  //     name,
+  //   });
     
-    return this.actorRepository.save(actor);
-  }
+  //   return this.actorRepository.save(actor);
+  // }
 }
